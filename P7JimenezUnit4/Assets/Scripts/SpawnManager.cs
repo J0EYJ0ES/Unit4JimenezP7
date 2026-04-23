@@ -1,15 +1,16 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     public GameObject enemyPrefab;
     private float spawnRange = 9;
+    public int enemyCount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
-    
+        SpawnEnemyWave(3);
     }
 
     private Vector3 GenerateSpawnPosition()
@@ -23,8 +24,20 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length;
+
+        if(enemyCount == 0)
+        {
+            SpawnEnemyWave(1);
+        }
     }
 
+    void SpawnEnemyWave(int enemiesToSpawn)
+    {
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
+        }
+    }
 
 }
