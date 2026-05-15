@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Security.Cryptography;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,6 +11,14 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
     public GameObject powerupIndicator;
+
+    public float hangTime;
+    public float smashSpeed;
+    public float explosionForce;
+    public float explosionRadius;
+
+    bool smashing = false;
+    float floorY;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,4 +66,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator Smash()
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+
+        floorY = ToBase64Transform.position.y;
+
+        float jumpTime = Time.time + hangTime;
+    }
 }
